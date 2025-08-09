@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600&display=swap');
+
+html, body {
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .title, .hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+
+p, .paragraph, .hero-content p, li, span, label, input, button {
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+@import url('./styles/theme.css');
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: inherit;
+  transition: color var(--transition);
+}
+a:hover {
+  color: var(--color-accent);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text);
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+button {
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+button:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-dark);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (max-width: 900px) {
+  .navbar__container, .auth-banner__content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 12px;
+  }
+}
