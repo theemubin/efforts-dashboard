@@ -7,31 +7,35 @@ export const DashboardOverview = ({ id }: { id?: string }) => (
       <h1>Campus Rewards Dashboard</h1>
       <p className="dashboard-subtitle">Track your progress and claim amazing rewards!</p>
     </div>
-    <div className="stats-grid">
-      <div className="stat-card">
-        <div className="stat-icon"><i className="fas fa-trophy"></i></div>
-        <div className="stat-content">
+    <div className="stats-glass-container">
+      <div className="stat-glass-card gradient1">
+        <span></span>
+        <div className="stat-glass-content">
+          <div className="stat-glass-icon"><i className="fas fa-trophy"></i></div>
           <h3>24</h3>
           <p>Available Rewards</p>
         </div>
       </div>
-      <div className="stat-card">
-        <div className="stat-icon"><i className="fas fa-star"></i></div>
-        <div className="stat-content">
+      <div className="stat-glass-card gradient2">
+        <span></span>
+        <div className="stat-glass-content">
+          <div className="stat-glass-icon"><i className="fas fa-star"></i></div>
           <h3>8</h3>
           <p>Rewards Claimed</p>
         </div>
       </div>
-      <div className="stat-card">
-        <div className="stat-icon"><i className="fas fa-users"></i></div>
-        <div className="stat-content">
+      <div className="stat-glass-card gradient3">
+        <span></span>
+        <div className="stat-glass-content">
+          <div className="stat-glass-icon"><i className="fas fa-users"></i></div>
           <h3>3rd</h3>
           <p>Campus Ranking</p>
         </div>
       </div>
-      <div className="stat-card">
-        <div className="stat-icon"><i className="fas fa-medal"></i></div>
-        <div className="stat-content">
+      <div className="stat-glass-card gradient4">
+        <span></span>
+        <div className="stat-glass-content">
+          <div className="stat-glass-icon"><i className="fas fa-medal"></i></div>
           <h3>Level 2</h3>
           <p>Current Merit Level</p>
         </div>

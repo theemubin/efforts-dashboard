@@ -1,0 +1,7 @@
+.wrap{display:flex;flex-direction:column;gap:1.4rem}
+.wrap h1{margin:0;font-size:1.5rem;font-weight:600;letter-spacing:.5px;background:linear-gradient(90deg,#41d6b5,#68e6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{margin:0;font-size:.85rem;line-height:1.35rem;color:#9bb3c5;max-width:620px}
+.placeholderGrid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.card{background:#111b25;border:1px solid #1d2a36;border-radius:14px;padding:1rem .95rem 1.1rem;display:flex;flex-direction:column;gap:.4rem}
+.card h3{margin:0;font-size:.85rem;letter-spacing:.5px;font-weight:600;color:#d7e3ed;text-transform:uppercase}
+.card p{margin:0;font-size:.7rem;line-height:1.15rem;color:#92a6b6}
