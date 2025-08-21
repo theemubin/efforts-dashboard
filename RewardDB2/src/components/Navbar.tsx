@@ -37,27 +37,9 @@ export const Navbar = () => {
             {!loggedIn ? (
               <button className="navbar__login-btn-modern" onClick={() => setLoggedIn(true)}>Log in</button>
             ) : (
-              <div
-                className="navbar__user-dropdown"
-                onMouseEnter={() => setDropdownOpen(true)}
-                onMouseLeave={() => setDropdownOpen(false)}
-                tabIndex={0}
-                style={{ position: 'relative', display: 'inline-block' }}
-              >
-                <span
-                  className="navbar__user-name-modern navbar__user-name-dropdown"
-                  aria-haspopup="true"
-                  aria-expanded={dropdownOpen}
-                  style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }}
-                >
-                  {userName}
-                  <svg className="navbar__dropdown-arrow" width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </span>
-                {dropdownOpen && (
-                  <div className="navbar__dropdown-menu" style={{ position: 'absolute', top: 'calc(100% + 4px)', right: 0, zIndex: 10 }}>
-                    <button className="navbar__logout-btn-modern" onClick={() => { setLoggedIn(false); setDropdownOpen(false); }}>Log out</button>
-                  </div>
-                )}
+              <div className="navbar__user-display" style={{ display: 'inline-flex', alignItems: 'center' }}>
+                <span className="navbar__user-name-modern" style={{ display: 'inline-flex', alignItems: 'center' }}>{userName}</span>
+                <button className="navbar__logout-btn-modern" onClick={() => setLoggedIn(false)} style={{ marginLeft: 8 }}>Log out</button>
               </div>
             )}
           </div>
