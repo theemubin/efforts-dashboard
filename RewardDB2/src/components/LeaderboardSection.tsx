@@ -1,4 +1,3 @@
-import React from 'react';
 import './LeaderboardSection.css';
 
 export const LeaderboardSection = ({ id }: { id?: string }) => (

@@ -1,24 +1,11 @@
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import './Navbar.css';
 
 export const Navbar = () => {
 
   const [loggedIn, setLoggedIn] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const userName = 'User Name';
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!dropdownOpen) return;
-    function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [dropdownOpen]);
 
   return (
     <nav className="navbar">
@@ -33,7 +20,7 @@ export const Navbar = () => {
             <li><a href="#leaderboard" className="hover-underline">Leaderboard</a></li>
             <li><a href="#request" className="hover-underline">Request Rewards</a></li>
           </ul>
-          <div className="navbar__user-info-modern" ref={dropdownRef}>
+          <div className="navbar__user-info-modern">
             {!loggedIn ? (
               <button className="navbar__login-btn-modern" onClick={() => setLoggedIn(true)}>Log in</button>
             ) : (

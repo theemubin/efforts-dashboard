@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './EventPage.module.css';
 import { db, auth } from '../firebase';
-import { collection, getDocs, addDoc, doc, updateDoc, arrayUnion, Timestamp, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, Timestamp, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FaCalendarAlt, FaUserCircle, FaImages } from 'react-icons/fa';
 import { FiCalendar, FiTag, FiChevronRight } from 'react-icons/fi';
@@ -11,7 +11,7 @@ export const EventPage = () => {
   const [events, setEvents] = useState<any[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [comment, setComment] = useState('');
+  // comment feature removed
   const [newEvent, setNewEvent] = useState({ title: '', date: '', description: '', heroImage: '' });
   const [heroImageFile, setHeroImageFile] = useState<File | null>(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -46,18 +46,7 @@ export const EventPage = () => {
     }).catch(() => alert('Could not copy link'));
   };
 
-  const handleComment = async () => {
-    if (!comment.trim() || !selectedEvent || !user) return;
-    const commentObj = {
-      user: user.displayName || user.email || 'Anonymous',
-      time: Timestamp.now().toDate().toLocaleString(),
-      text: comment
-    };
-    await updateDoc(doc(db, 'events', selectedEvent.id), {
-      comments: arrayUnion(commentObj)
-    });
-    setComment('');
-  };
+  // Comment handling removed (not used)
 
   const handleHeroImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

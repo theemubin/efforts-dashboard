@@ -1,4 +1,3 @@
-import React from 'react';
 import './DashboardOverview.css';
 
 export const DashboardOverview = ({ id }: { id?: string }) => (

@@ -1,4 +1,5 @@
-import React from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
+// Child component to handle image error state per reward
 // Child component to handle image error state per reward
 const RewardImage = ({ imageUrl, title }: { imageUrl?: string, title: string }) => {
   let imgUrl = imageUrl;
@@ -8,8 +9,8 @@ const RewardImage = ({ imageUrl, title }: { imageUrl?: string, title: string }) 
       imgUrl = `https://drive.google.com/uc?export=view&id=${match[1]}`;
     }
   }
-  const [imgError, setImgError] = React.useState(false);
-  React.useEffect(() => { setImgError(false); }, [imgUrl]);
+  const [imgError, setImgError] = useState(false);
+  useEffect(() => { setImgError(false); }, [imgUrl]);
   if (!imgUrl || imgError) {
     return <div className="reward-image" style={{display:'flex',alignItems:'center',justifyContent:'center',color:'#888',fontSize:13,background:'#222'}}>Image not available</div>;
   }
@@ -20,7 +21,6 @@ const RewardImage = ({ imageUrl, title }: { imageUrl?: string, title: string }) 
   );
 };
 
-import { useEffect, useMemo, useState } from 'react';
 import './RewardsSection.css';
 import { useCampus } from '../contexts/CampusContext';
 import { campusList } from './campusList';
@@ -53,7 +53,7 @@ export const RewardsSection = ({ id }: { id?: string }) => {
   const [showLocked, setShowLocked] = useState(false);
   const [rewards, setRewards] = useState<RewardRecord[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showDebug, setShowDebug] = useState(false);
+  const [showDebug] = useState(false);
   const { user, profile } = useUserProfile();
   const [claimingIds, setClaimingIds] = useState<string[]>([]);
   const [claimedIds, setClaimedIds] = useState<string[]>([]); // claimed (pending/approved) this month by this house
@@ -127,14 +127,14 @@ export const RewardsSection = ({ id }: { id?: string }) => {
       .sort((a,b)=> (b.likes||0) - (a.likes||0))
       .slice(0,5);
   },[rewards]);
-  const carouselRef = React.useRef<HTMLDivElement|null>(null);
+  const carouselRef = useRef<HTMLDivElement|null>(null);
   const scrollCarousel = (dir:number)=>{
     if(!carouselRef.current) return;
     const width = carouselRef.current.clientWidth;
     carouselRef.current.scrollBy({left: dir * (width * 0.8), behavior:'smooth'});
   };
   // Auto-scroll logic
-  React.useEffect(()=>{
+  useEffect(()=>{
     if(!carouselRef.current) return;
     let paused = false;
     const el = carouselRef.current;
@@ -160,7 +160,7 @@ export const RewardsSection = ({ id }: { id?: string }) => {
   },[topRewards.length]);
 
   // Determine start of current month for claim uniqueness window
-  const monthKey = React.useMemo(()=>{
+  const monthKey = useMemo(()=>{
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
   },[]);

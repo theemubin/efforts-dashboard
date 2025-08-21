@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Papa, { ParseResult } from 'papaparse';
+import Papa from 'papaparse';
+import type { ParseResult } from 'papaparse';
 import { toast } from 'react-hot-toast';
 import { db } from '../../firebase';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
