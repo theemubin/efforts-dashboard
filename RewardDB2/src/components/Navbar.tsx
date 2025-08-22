@@ -1,11 +1,30 @@
 
-import { useState } from 'react';
+
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useEffect, useState } from 'react';
 import './Navbar.css';
 
 export const Navbar = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 900);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  const userName = 'User Name';
+  const handleLogin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const provider = new GoogleAuthProvider();
+    signInWithRedirect(auth, provider);
+  };
+
+  const handleLogout = (e: React.MouseEvent) => {
+    e.preventDefault();
+    signOut(auth);
+  };
 
   return (
     <nav className="navbar">
@@ -19,23 +38,23 @@ export const Navbar = () => {
             <li><a href="#rewards" className="hover-underline">Rewards</a></li>
             <li><a href="#leaderboard" className="hover-underline">Leaderboard</a></li>
             <li><a href="#request" className="hover-underline">Request Rewards</a></li>
-          </ul>
-          <div className="navbar__user-info-modern">
-            {!loggedIn ? (
-              <button className="navbar__login-btn-modern" onClick={() => setLoggedIn(true)}>Log in</button>
+            {!user ? (
+              <li><a href="#login" className="hover-underline" onClick={handleLogin}>Log in</a></li>
             ) : (
-              <div className="navbar__user-display" style={{ display: 'inline-flex', alignItems: 'center' }}>
-                <span className="navbar__user-name-modern" style={{ display: 'inline-flex', alignItems: 'center' }}>{userName}</span>
-                <button className="navbar__logout-btn-modern" onClick={() => setLoggedIn(false)} style={{ marginLeft: 8 }}>Log out</button>
-              </div>
+              <>
+                <li><a href="#profile" className="hover-underline" style={{ fontWeight: 500 }}>{user.displayName || user.email}</a></li>
+                <li><a href="#logout" className="hover-underline" onClick={handleLogout}>Log out</a></li>
+              </>
             )}
-          </div>
+          </ul>
         </div>
-        <button className="navbar__toggle" aria-label="Open menu">
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </button>
+        {isMobile && (
+          <button className="navbar__toggle" aria-label="Open menu">
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </button>
+        )}
       </div>
     </nav>
   );

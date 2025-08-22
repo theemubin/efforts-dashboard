@@ -66,23 +66,24 @@
   transition: color 0.3s;
 }
 html, body {
-  height: auto;
+  height: 100%;
   min-height: 100dvh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: none !important;
 }
 .hero-section {
   position: relative;
-  width: 100vw;
-  min-height: 98dvh;
-  height: 98dvh;
-  max-height: 98dvh;
+  width: 100%;
+  min-height: 100dvh;
+  height: 100dvh;
+  max-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #111;
+  background: none;
   box-sizing: border-box;
 }
 .hero-carousel {
@@ -91,7 +92,7 @@ html, body {
   transform: translateX(-50%);
   bottom: 2.5vw;
   z-index: 3;
-  width: 96vw;
+  width: 96%;
   max-width: 1200px;
   display: flex;
   justify-content: center;
@@ -153,9 +154,9 @@ html, body {
 .hero-bg {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  width: 100vw;
-  height: 98dvh;
-  max-height: 98dvh;
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
   background: center/cover no-repeat;
   transition: opacity 3.5s cubic-bezier(0.4,0,0.2,1);
   will-change: opacity;
@@ -197,12 +198,12 @@ html, body {
   .hero-content { padding: 1.2rem 0.5rem; border-radius: 1rem; }
   .hero-section { min-height: 58.8dvh; height: 58.8dvh; }
   .hero-bg { height: 58.8dvh; }
-  .hero-carousel { width: 99vw; }
+  .hero-carousel { width: 98%; }
 }
 @media (max-width: 600px) {
   .hero-content h1 { font-size: 1.3rem; }
   .hero-content { padding: 0.7rem 0.2rem; border-radius: 0.7rem; }
   .hero-section { min-height: 39.2dvh; height: 39.2dvh; }
   .hero-bg { height: 39.2dvh; }
-  .hero-carousel { bottom: 1vw; width: 100vw; }
+  .hero-carousel { bottom: 1vw; width: 99%; }
 }

@@ -5,6 +5,7 @@ export const LeaderboardSection = ({ id }: { id?: string }) => (
     <div className="section-header">
       <h2>🏆 Campus Leaderboard</h2>
       <p>See how campuses and houses are performing this month</p>
+      <span style={{fontSize:'0.95rem',color:'#b0b0b0',fontStyle:'italic',marginTop:'0.5rem',display:'block',letterSpacing:'0.01em'}}>Leaderboard is under construction and may show sample data.</span>
     </div>
     <div className="leaderboard-tabs">
       <button className="tab-button active">Campus Rankings</button>

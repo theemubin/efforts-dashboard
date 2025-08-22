@@ -3,9 +3,15 @@
   font-style: italic;
 }
 /* --- Global Section Spacing & Container --- */
-.section, .dashboard-overview, .rewards-section, .leaderboard-section, .hero-section {
+.section, .dashboard-overview, .rewards-section, .leaderboard-section {
   margin-top: 3.5rem;
   margin-bottom: 3.5rem;
+}
+
+/* Hero section should have no margins to be fullscreen */
+.hero-section {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .container, .dashboard-overview, .rewards-section, .leaderboard-section {
   max-width: 1200px;
@@ -17,11 +23,24 @@
   padding-right: 1.5rem;
 }
 
+/* Add padding back for non-hero sections only */
+.dashboard-overview, .rewards-section, .leaderboard-section {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 /* --- Section Shadows --- */
-.dashboard-overview, .rewards-section, .leaderboard-section, .hero-section {
+.dashboard-overview, .rewards-section, .leaderboard-section {
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
   border-radius: 1.5rem;
   background: rgba(20,20,20,0.85);
+}
+
+/* Hero section should not have these styles to be fullscreen */
+.hero-section {
+  box-shadow: none;
+  border-radius: 0;
+  background: none;
 }
 
 /* --- Typography Hierarchy --- */
@@ -210,9 +229,13 @@ footer.site-footer {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
-  .section, .dashboard-overview, .rewards-section, .leaderboard-section, .hero-section {
+  .section, .dashboard-overview, .rewards-section, .leaderboard-section {
     margin-top: 2rem;
     margin-bottom: 2rem;
+  }
+  .hero-section {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 @media (max-width: 600px) {
@@ -220,9 +243,13 @@ footer.site-footer {
     padding-left: 0.2rem;
     padding-right: 0.2rem;
   }
-  .section, .dashboard-overview, .rewards-section, .leaderboard-section, .hero-section {
+  .section, .dashboard-overview, .rewards-section, .leaderboard-section {
     margin-top: 1.2rem;
     margin-bottom: 1.2rem;
+  }
+  .hero-section {
+    margin-top: 0;
+    margin-bottom: 0;
   }
   h1 { font-size: 1.5rem; }
   h2 { font-size: 1.2rem; }
@@ -258,6 +285,23 @@ p, .paragraph, .hero-content p, li, span, label, input, button {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: transparent;
+  overflow-x: hidden;
 }
 
 a {
@@ -272,14 +316,15 @@ a:hover {
 
 body {
   margin: 0;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
   display: flex;
   flex-direction: column;
-  padding: 0 2vw;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 @media (max-width: 600px) {
   body {

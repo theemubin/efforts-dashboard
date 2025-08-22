@@ -95,7 +95,6 @@ function App() {
 
   return (
     <Router>
-      <Toaster position="top-right" toastOptions={{ style: { background: '#182a36', color: '#fff', fontWeight: 500, borderRadius: 10 } }} />
       <ThemeProvider>
         <CampusProvider>
           <Routes>
@@ -114,8 +113,8 @@ function App() {
             </Route>
             <Route path="/" element={
               <>
-                <Toaster position="top-right" toastOptions={{ style: { background: '#182a36', color: '#fff', fontWeight: 500, borderRadius: 10 } }} />
                 <HeroSection />
+                <Toaster position="top-right" toastOptions={{ style: { background: '#182a36', color: '#fff', fontWeight: 500, borderRadius: 10 } }} />
                 <Navbar />
                 <DashboardOverview id="dashboard" />
                 <RewardsSection id="rewards" />

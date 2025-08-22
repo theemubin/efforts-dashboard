@@ -83,6 +83,9 @@
   color: var(--color-text);
   position: relative;
   display: inline-block;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .hover-underline::after,
@@ -128,7 +131,7 @@
 
 
 .navbar__toggle {
-  display: none;
+  display: none !important;
   flex-direction: column;
   gap: 4px;
   background: none;
@@ -149,6 +152,6 @@
     display: none;
   }
   .navbar__toggle {
-    display: flex;
+    display: flex !important;
   }
 }

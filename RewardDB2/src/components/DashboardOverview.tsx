@@ -5,6 +5,7 @@ export const DashboardOverview = ({ id }: { id?: string }) => (
     <div className="dashboard-header">
       <h1>Campus Rewards Dashboard</h1>
       <p className="dashboard-subtitle">Track your progress and claim amazing rewards!</p>
+      <span style={{fontSize:'0.95rem',color:'#b0b0b0',fontStyle:'italic',marginTop:'0.5rem',display:'block',letterSpacing:'0.01em'}}>Some stats are under construction and may not reflect live data.</span>
     </div>
     <div className="stats-glass-container">
       <div className="stat-glass-card gradient1">
