@@ -141,7 +141,7 @@ export const EventPage = () => {
           </div>
         )}
         {loading && (
-          <div className={styles.eventGrid} aria-hidden="true">
+          <div className={styles.eventGrid}>
             {Array.from({ length: 6 }).map((_, i) => (
               <div className={styles.skeletonCard} key={i}>
                 <div className={styles.skeletonImage} />

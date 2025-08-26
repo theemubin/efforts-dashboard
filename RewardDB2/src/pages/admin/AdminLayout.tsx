@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { FiAward, FiUsers, FiImage, FiSettings, FiLogOut, FiCalendar, FiClipboard, FiUpload } from 'react-icons/fi';
+import { FiAward, FiUsers, FiImage, FiSettings, FiLogOut, FiCalendar, FiClipboard, FiUpload, FiMessageSquare } from 'react-icons/fi';
 import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styles from './AdminLayout.module.css';
@@ -116,6 +116,7 @@ const AdminLayout: React.FC = () => {
           <NavLink to="claims" className={({isActive})=> isActive?`${styles.link} ${styles.active}`:styles.link}><FiClipboard/> <span>Claims</span></NavLink>
           <NavLink to="users" className={({isActive})=> isActive?`${styles.link} ${styles.active}`:styles.link}><FiUsers/> <span>Users</span></NavLink>
           <NavLink to="media" className={({isActive})=> isActive?`${styles.link} ${styles.active}`:styles.link}><FiImage/> <span>Media</span></NavLink>
+          <NavLink to="testimonials" className={({isActive})=> isActive?`${styles.link} ${styles.active}`:styles.link}><FiMessageSquare/> <span>Testimonials</span></NavLink>
           <NavLink to="points-upload" className={({isActive})=> isActive?`${styles.link} ${styles.active}`:styles.link}><FiUpload/> <span>Points Upload</span></NavLink>
           <NavLink to="settings" className={({isActive})=> isActive?`${styles.link} ${styles.active}`:styles.link}><FiSettings/> <span>Settings</span></NavLink>
         </nav>

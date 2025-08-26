@@ -1,7 +1,7 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+// Firebase Storage is optional and not used by default in this project.
 import { getDatabase } from "firebase/database";
 import { getFunctions } from "firebase/functions";
 import { getAnalytics } from "firebase/analytics";
@@ -51,7 +51,7 @@ export const firebase2 = secondaryApp;
 
 export const auth2 = secondaryApp ? getAuth(secondaryApp) : null;
 export const db2 = secondaryApp ? getFirestore(secondaryApp) : null;
-export const storage2 = secondaryApp ? getStorage(secondaryApp) : null;
+// storage2 intentionally not exported since Cloudinary is used for images.
 export const realtimeDb2 = secondaryApp ? getDatabase(secondaryApp) : null;
 export const functions2 = secondaryApp ? getFunctions(secondaryApp) : null;
 

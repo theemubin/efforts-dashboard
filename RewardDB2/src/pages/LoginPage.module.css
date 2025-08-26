@@ -1,7 +1,22 @@
 .loginPageContainer { position:relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 30% 40%, #1d2730 0%, #0f1419 65%, #0b0f14 100%); overflow:hidden; }
 .loginPageContainer:before { content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,230,210,0.08), rgba(30,215,96,0.05)); pointer-events:none; }
 
-.loginForm { position:relative; backdrop-filter:blur(12px) saturate(130%); background:rgba(15,20,25,0.78); border:1px solid rgba(255,255,255,0.08); border-radius:1.5rem; box-shadow:0 10px 40px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04); padding:2.5rem 2.2rem 2.2rem 2.2rem; min-width:320px; max-width:370px; width:100%; display:flex; flex-direction:column; gap:1.1rem; }
+.loginForm {
+  position:relative;
+  background: #181f2a;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px -8px #000a;
+  padding: 2.2rem 2.2rem 1.5rem;
+  min-width: 320px;
+  max-width: 95vw;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, background 0.3s;
+}
 
 .loginTitle {
   color: #00e6d2;
@@ -12,10 +27,53 @@
   text-align: center;
 }
 
+.loginForm h2 {
+  font-size: 1.02rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+  color: #00e6d2;
+}
+
+.formRow {
+  margin-bottom: 1.4rem;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.formRow label {
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+  color: #41d6b5;
+  font-weight: 500;
+}
+
 .loginForm label {
   color: #b0b0b0;
   font-size: 1.08rem;
   margin-bottom: 0.2em;
+}
+
+select, input[type="url"] {
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #2a3a4a;
+  background: #232b3a;
+  color: #e6f0f5;
+  font-size: 1.05rem;
+  margin-top: 0.1rem;
+  transition: border 0.2s, background 0.2s;
+}
+
+select:focus, input[type="url"]:focus {
+  border-color: #41d6b5;
+  background: #1a2230;
+  outline: none;
 }
 
 .loginForm input {
@@ -35,29 +93,59 @@
 }
 
 .loginBtn {
-  background: linear-gradient(90deg, #00e6d2 0%, #1ed760 100%);
-  color: #111;
+  background: linear-gradient(90deg,#41d6b5 0%,#00e6d2 100%);
+  color: #181f2a;
   font-weight: 700;
   border: none;
-  border-radius: 2em;
-  padding: 0.7em 1.5em;
+  border-radius: 10px;
+  padding: 0.85rem 2.2rem;
+  font-size: 1.08rem;
   cursor: pointer;
-  font-size: 1.08em;
-  margin-top: 0.7em;
-  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 2px 12px -4px #00e6d2a0;
+  margin-top: 0.7rem;
+  transition: background 0.2s, color 0.2s;
 }
-.loginBtn:hover {
-  background: linear-gradient(90deg, #1ed760 0%, #00e6d2 100%);
+.loginBtn:disabled {
+  background: #2a3a4a;
+  color: #b7e3e3;
+  cursor: not-allowed;
+}
+.loginBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg,#00e6d2 0%,#41d6b5 100%);
   color: #fff;
 }
 
+.subtleBtn {
+  background: #232b3a;
+  color: #41d6b5;
+  font-weight: 500;
+  border: 1px solid #2a3a4a;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.98rem;
+  cursor: pointer;
+  box-shadow: none;
+  margin-top: 0.3rem;
+  transition: background 0.2s, color 0.2s;
+}
+.subtleBtn:disabled {
+  background: #232b3a;
+  color: #b7e3e3;
+  cursor: not-allowed;
+}
+.subtleBtn:hover:not(:disabled) {
+  background: #1a2230;
+  color: #00e6d2;
+}
+
 .errorMsg {
-  color: #ff0058;
-  background: #2a181a;
-  border-radius: 0.5em;
-  padding: 0.5em 1em;
-  font-size: 1em;
-  margin-bottom: 0.5em;
+  color: #ff4d6b;
+  background: #2a1a1a;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  width: 100%;
   text-align: center;
 }
 
@@ -66,6 +154,33 @@
   font-size: 0.98em;
   text-align: center;
   margin-top: 1.2em;
+}
+
+.progressBarWrapper {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 1.2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.progressBarBg {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: #232b3a;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+.progressBarFill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  height: 100%;
+  background: linear-gradient(90deg,#41d6b5 0%,#00e6d2 100%);
+  border-radius: 6px;
+  transition: width 0.4s cubic-bezier(.4,1.4,.6,1);
+  z-index: 1;
 }
 
 @media (max-width: 600px) {

@@ -1,0 +1,144 @@
+.winnersCarouselContainer {
+  width: 100vw;
+  max-width: none;
+  overflow: hidden;
+  position: relative;
+}
+
+.winnersCarouselTrack {
+  display: flex;
+  gap: 2rem;
+  animation: winnersSlide 45s linear infinite;
+  width: max-content;
+}
+
+.winnerCard {
+  width: 320px;
+  min-width: 320px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.winnerCard img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.winnerCard:hover img {
+  transform: scale(1.1); /* Zoom in the image */
+}
+
+/* Updated structure for name, category, and details */
+.winnerCardContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  text-align: center;
+  z-index: 2;
+  opacity: 0;
+  border-radius: 0.5rem;
+}
+
+.winnerCardContent h3 {
+  font-size: 1.5rem; /* Emphasized name */
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+}
+
+.winnerCardContent h4 {
+  font-size: 1.2rem; /* Winning category */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #d1d5db;
+  line-height: 1.2;
+}
+
+/* Adjust details to be displayed in a compact format */
+.winnerCardContent p {
+  font-size: 0.9rem; /* Details */
+  margin: 0; /* Remove extra spacing */
+  line-height: 1.2;
+}
+
+/* Add spacing between compact details */
+.winnerCardContent .details {
+  margin-top: 0.5rem;
+}
+
+.winnerCardContent ul {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.winnerCardContent ul li a {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.winnerCardContent ul li a:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.winnerCard:hover .winnerCardContent {
+  transform: translateY(0); /* Slide up into view */
+  opacity: 1; /* Fade in */
+}
+
+.winnerCardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1; /* Ensure it is below the content */
+}
+
+.winnerCard:hover .winnerCardOverlay {
+  opacity: 1;
+}
+
+/* Ensure modal overlays the carousel */
+.modal {
+  position: fixed;
+  inset: 0; /* Cover the entire screen */
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it is above all other elements */
+}
+
+@keyframes winnersSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.3333%); }
+}
+
+.winnersCarouselTrack:hover {
+  animation-play-state: paused;
+}

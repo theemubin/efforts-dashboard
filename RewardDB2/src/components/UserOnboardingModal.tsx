@@ -5,12 +5,15 @@ interface UserOnboardingModalProps {
   open: boolean;
   campusList: string[];
   houseList: string[];
-  onSubmit: (campus: string, house: string) => void;
+  onSubmit: (campus: string, house: string, linkedin: string, github: string, portfolio: string) => void;
 }
 
 const UserOnboardingModal: React.FC<UserOnboardingModalProps> = ({ open, campusList, houseList, onSubmit }) => {
   const [campus, setCampus] = useState('');
   const [house, setHouse] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+  const [github, setGithub] = useState('');
+  const [portfolio, setPortfolio] = useState('');
   if (!open) return null;
   return (
     <div className={styles.overlay} role="dialog" aria-modal="true">
@@ -30,7 +33,19 @@ const UserOnboardingModal: React.FC<UserOnboardingModalProps> = ({ open, campusL
             {houseList.map(h => <option key={h} value={h}>{h}</option>)}
           </select>
         </div>
-        <button className={styles.submitBtn} onClick={()=>campus && house && onSubmit(campus, house)} disabled={!campus || !house}>Save</button>
+        <div className={styles.formRow}>
+          <label htmlFor="linkedin">LinkedIn</label>
+          <input id="linkedin" type="url" value={linkedin} onChange={e=>setLinkedin(e.target.value)} placeholder="LinkedIn profile URL" />
+        </div>
+        <div className={styles.formRow}>
+          <label htmlFor="github">GitHub</label>
+          <input id="github" type="url" value={github} onChange={e=>setGithub(e.target.value)} placeholder="GitHub profile URL" />
+        </div>
+        <div className={styles.formRow}>
+          <label htmlFor="portfolio">Portfolio</label>
+          <input id="portfolio" type="url" value={portfolio} onChange={e=>setPortfolio(e.target.value)} placeholder="Portfolio URL" />
+        </div>
+        <button className={styles.submitBtn} onClick={()=>campus && house && onSubmit(campus, house, linkedin, github, portfolio)} disabled={!campus || !house}>Save</button>
       </div>
     </div>
   );

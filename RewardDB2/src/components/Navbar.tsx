@@ -6,14 +6,32 @@ import { useEffect, useState } from 'react';
 import './Navbar.css';
 
 export const Navbar = () => {
+  // Debug: log user object to console
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
+  // Debug: log user object to console
+  useEffect(() => {
+    console.log('[Navbar] user:', user);
+  }, [user]);
+  // Debug: log user object to console
+  useEffect(() => {
+    console.log('[Navbar] user:', user);
+  }, [user]);
+  // Debug: log user object to console
+  useEffect(() => {
+    console.log('[Navbar] user:', user);
+  }, [user]);
+  // Debug: log user object to console
+  useEffect(() => {
+    console.log('[Navbar] user:', user);
+  }, [user]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 900);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const auth = getAuth();
-  const [user] = useAuthState(auth);
+  // ...existing code...
 
   const handleLogin = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,7 +60,16 @@ export const Navbar = () => {
               <li><a href="#login" className="hover-underline" onClick={handleLogin}>Log in</a></li>
             ) : (
               <>
-                <li><a href="#profile" className="hover-underline" style={{ fontWeight: 500 }}>{user.displayName || user.email}</a></li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
+                  <a href="#profile" className="hover-underline" style={{ fontWeight: 500 }}>
+                    {user.displayName || user.email}
+                  </a>
+                  <img
+                    src={user.photoURL || '/favicon-32x32.png'}
+                    alt="avatar"
+                    style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}
+                  />
+                </li>
                 <li><a href="#logout" className="hover-underline" onClick={handleLogout}>Log out</a></li>
               </>
             )}
