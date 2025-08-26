@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink, Outlet, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { FiAward, FiUsers, FiImage, FiSettings, FiLogOut, FiCalendar, FiClipboard, FiUpload, FiMessageSquare } from 'react-icons/fi';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import styles from './AdminLayout.module.css';
 
 const AdminLayout: React.FC = () => {
@@ -19,8 +20,6 @@ const AdminLayout: React.FC = () => {
     if (!user) return;
     const checkAdmin = async () => {
       try {
-        const { db } = await import('../../firebase');
-        const { doc, getDoc } = await import('firebase/firestore');
         const ref = doc(db, 'users', user.uid);
         const snap = await getDoc(ref);
         if (snap.exists() && snap.data().role === 'admin') {
@@ -71,8 +70,6 @@ const AdminLayout: React.FC = () => {
     setRequesting(true);
     setError(null);
     try {
-      const { db } = await import('../../firebase');
-      const { doc, setDoc, serverTimestamp } = await import('firebase/firestore');
       await setDoc(doc(db, 'adminRequests', user.uid), {
         uid: user.uid,
         email: user.email,
