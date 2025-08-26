@@ -1,4 +1,4 @@
-# Campus Rewards Dashboard (React + Vite + TypeScript)
+# Efforts Dashboard (Campus Rewards) — React + Vite + TypeScript
 
 A creative, professional, business-class dark themed dashboard for campus rewards, built with React, Vite, and TypeScript.
 
@@ -33,3 +33,5 @@ A creative, professional, business-class dark themed dashboard for campus reward
 ---
 
 For workspace-specific Copilot instructions, see `.github/copilot-instructions.md`.
+
+Repository: https://github.com/theemubin/efforts-dashboard
