@@ -33,15 +33,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Authenticate to Google Cloud using service account
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Deploy to Firebase Hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: |
-          if [ -z "$FIREBASE_TOKEN" ]; then
-            echo "FIREBASE_TOKEN is not set. Add it to repository secrets and retry.";
-            exit 1;
-          fi
-          firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+        # Uses the authenticated gcloud context from the previous step.
+        # `--project` explicitly sets the target Firebase project from .firebaserc
+        run: firebase deploy --only hosting --project efforts-celebrations
