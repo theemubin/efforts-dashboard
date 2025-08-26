@@ -17,18 +17,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Choose install strategy and install deps
-        # Use `npm ci` when a lockfile is present for deterministic installs,
-        # otherwise fall back to `npm install --legacy-peer-deps` to tolerate
-        # peer dependency mismatches (matches local developer workflow).
-        run: |
-          if [ -f package-lock.json ]; then
-            echo "package-lock.json found — running npm ci"
-            npm ci
-          else
-            echo "no lockfile found — running npm install --legacy-peer-deps"
-            npm install --legacy-peer-deps
-          fi
+      - name: Install deps (legacy peer deps enabled)
+        run: npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build
