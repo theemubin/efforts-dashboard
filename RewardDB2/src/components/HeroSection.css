@@ -76,6 +76,17 @@ html, body {
 .hero-section {
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: none;
+  box-sizing: border-box;
+}
+.hero-section {
+  position: relative;
+  width: 100%;
+  /* hero should occupy full viewport height and start at the top of the page */
   min-height: 100dvh;
   height: 100dvh;
   max-height: 100dvh;
@@ -91,33 +102,45 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
   bottom: 2.5vw;
-  z-index: 3;
+  z-index: 2; /* keep carousel above background but below navbar (which is 1000) */
   width: 96%;
   max-width: 1200px;
   display: flex;
   justify-content: center;
   pointer-events: auto;
-  overflow: hidden;
+  overflow: visible; /* allow images to pop out */
   margin: 0 auto;
   box-sizing: border-box;
 }
+
 .carousel-track {
   display: flex;
   gap: 1.2vw;
   animation: train-move 60s linear infinite;
   width: max-content;
 }
+
 .carousel-img {
   width: clamp(60px, 9vw, 110px);
   height: clamp(40px, 6vw, 70px);
   object-fit: cover;
   border-radius: 0.7vw;
   box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  opacity: 0.85;
+  opacity: 0.95;
   border: 2px solid rgba(255,255,255,0.08);
   background: #222;
   transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s, border 0.2s;
   cursor: pointer;
+  z-index: 3; /* above carousel track but below navbar */
+  flex: 0 0 auto;
+}
+
+.carousel-img:hover, .carousel-img.active {
+  opacity: 1;
+  border: 2.5px solid #fff;
+  box-shadow: 0 4px 24px #000, 0 0 0 2px #fff2;
+  transform: scale(1.08);
+  z-index: 4;
 }
 .carousel-img:hover, .carousel-img.active {
   opacity: 1;
@@ -152,24 +175,24 @@ html, body {
   to { opacity: 1; }
 }
 .hero-bg {
+  /* confined to the .hero-section so it is not used as a site-wide background */
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
+  height: 100%;
   background: center/cover no-repeat;
+  background-size: cover;
   transition: opacity 3.5s cubic-bezier(0.4,0,0.2,1);
   will-change: opacity;
   cursor: pointer;
-  filter: blur(0.5px) brightness(1.1);
-  z-index: 1;
+  filter: blur(0.5px) brightness(1.05);
+  z-index: 0; /* behind hero content but limited to the hero section */
+  pointer-events: none; /* avoid intercepting clicks */
 }
-.hero-bg.show-bg {
-  /* opacity handled inline for smooth transition */
-}
+.hero-bg.show-bg { pointer-events: auto; }
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 5; /* above carousel and background */
   color: #fff;
   text-align: center;
   padding: 2.5rem 1.5rem;

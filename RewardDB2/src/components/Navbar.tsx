@@ -10,10 +10,31 @@ export const Navbar = () => {
   const [user] = useAuthState(auth);
   
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+  const [scrolled, setScrolled] = useState(false);
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 900);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    let threshold = 40;
+    const hero = document.querySelector('.hero-section') as HTMLElement | null;
+    if (hero) {
+      threshold = Math.max(0, hero.offsetHeight - 64); // when hero bottom reaches navbar top
+    }
+    const onScroll = () => {
+      const isScrolled = window.scrollY >= threshold;
+      setScrolled(isScrolled);
+      if (isScrolled) document.body.classList.add('navbar-fixed'); else document.body.classList.remove('navbar-fixed');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      document.body.classList.remove('navbar-fixed');
+    };
   }, []);
   // ...existing code...
 
@@ -29,7 +50,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
+  <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar__container">
         <div className="navbar__logo">
           <i className="fas fa-trophy"></i>

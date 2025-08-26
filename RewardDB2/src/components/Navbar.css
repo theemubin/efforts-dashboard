@@ -34,13 +34,29 @@
   padding: 0;
 }
 .navbar {
-  background: var(--color-surface);
+  background: #0c1014; /* solid dark background */
   color: var(--color-text);
-  box-shadow: var(--shadow);
+  box-shadow: none;
   padding: 0 var(--spacing);
-  position: sticky;
+  position: static; /* let hero sit underneath initially */
+  top: auto;
+  z-index: 1000;
+}
+
+/* opaque solid navbar once page is scrolled */
+.navbar.scrolled {
+  background: #0c1014; /* keep scrolled state solid too */
+  box-shadow: var(--shadow);
+  transition: background 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+/* when body has navbar-fixed, pin navbar to top and reserve layout space */
+body.navbar-fixed .navbar {
+  position: fixed;
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  background: #0c1014; /* ensure fixed navbar is solid */
 }
 
 .navbar__container {

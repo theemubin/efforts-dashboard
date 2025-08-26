@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import ThemeProvider from './components/ThemeProvider';
 import { CampusProvider } from './contexts/CampusContext';
 import { Navbar } from './components/Navbar';
+import { HeroSection } from './components/HeroSection';
 import { DashboardOverview } from './components/DashboardOverview';
 import { RewardsSection } from './components/RewardsSection';
 import { LeaderboardSection } from './components/LeaderboardSection';
@@ -143,8 +144,9 @@ function App() {
           }
         }}
       />
-      <Navbar />
-      <DashboardOverview id="dashboard" />
+  <HeroSection />
+  <Navbar />
+  <DashboardOverview id="dashboard" />
       <RewardsSection id="rewards" />
       <LeaderboardSection id="leaderboard" />
       <FeaturedWinnersCarousel />

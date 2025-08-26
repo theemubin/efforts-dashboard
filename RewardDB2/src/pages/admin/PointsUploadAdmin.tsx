@@ -411,7 +411,8 @@ const PointsUploadAdmin: React.FC = () => {
       const fetchUrl = url || sheetUrl;
       const res = await fetch(fetchUrl);
       if (!res.ok) {
-        throw new Error('Failed to fetch sheet');
+        // include status for debugging
+        throw new Error(`Failed to fetch sheet (status ${res.status})`);
       }
       const text = await res.text();
       Papa.parse<any>(text, {
@@ -423,11 +424,28 @@ const PointsUploadAdmin: React.FC = () => {
         }
       });
     } catch (e: any) {
-      setError('Failed to fetch or parse sheet. Check console for details.');
+      // Suggest alternate options when fetch fails
+      setError(
+        `Failed to fetch or parse sheet: ${e?.message || 'unknown error'}.\nPlease try the second option ("Fetch from Navgurukul House Points Sheet") or the third option (download CSV and upload via the file input).`
+      );
     } finally {
       setFetching(false);
     }
   };
+
+  const Spinner: React.FC<{ size?: number }> = ({ size = 18 }) => (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 50 50"
+      aria-hidden="true"
+      style={{ marginLeft: 8 }}
+    >
+      <circle cx="25" cy="25" r="20" fill="none" stroke="#00e6d2" strokeWidth="4" strokeLinecap="round" strokeDasharray="31.4 31.4">
+        <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.9s" repeatCount="indefinite" />
+      </circle>
+    </svg>
+  );
 
   const handleUpload = async () => {
     if (!selectedDate) {
@@ -539,6 +557,7 @@ const PointsUploadAdmin: React.FC = () => {
         disabled={!selectedCampus || loading || fetching}
         style={{background:'#00e6d2',color:'#0b0d12',fontWeight:700,padding:'8px 22px',borderRadius:10,border:'none',fontSize:16,cursor:'pointer',marginBottom:8, opacity: selectedCampus ? 1 : 0.5}}
       >{fetching ? 'Fetching...' : 'Fetch from Navgurukul House Points Sheet'}</button>
+  {fetching && <Spinner />}
       <div style={{margin:'10px 0',color:'#aaa',fontSize:13, opacity: selectedCampus ? 1 : 0.5}}>or paste another Google Sheet CSV URL below:</div>
       <input
         type="text"
@@ -553,6 +572,7 @@ const PointsUploadAdmin: React.FC = () => {
         disabled={!sheetUrl || !selectedCampus || loading || fetching}
         style={{background:'#00e6d2',color:'#0b0d12',fontWeight:700,padding:'8px 22px',borderRadius:10,border:'none',fontSize:16,cursor:'pointer',marginBottom:8, opacity: selectedCampus ? 1 : 0.5}}
       >{fetching ? 'Fetching...' : 'Fetch from Custom Sheet URL'}</button>
+  {fetching && <Spinner />}
       {error && <div style={{color:'#ff6b6b',marginTop:12, padding: '8px 12px', background: 'rgba(255, 107, 107, 0.1)', borderRadius: 6}}>{error}</div>}
 
       {summary && (
