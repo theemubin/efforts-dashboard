@@ -1,29 +1,36 @@
-name: CI → Build & Deploy to Firebase Hosting
+name: Deploy to Firebase Hosting
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch: # Allow manual triggering
 
 jobs:
-  build-and-deploy:
+  deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm'
 
-      - name: Install deps (legacy peer deps enabled)
-        run: npm install --legacy-peer-deps
+      - name: Install dependencies with legacy peer deps
+        run: |
+          echo "Installing with legacy peer deps..."
+          npm install --legacy-peer-deps
 
-      - name: Build
-        run: npm run build
+      - name: Build application
+        run: |
+          echo "Building application..."
+          npm run build
 
-      - name: Authenticate to Google Cloud using service account
+      - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
@@ -32,6 +39,6 @@ jobs:
         run: npm install -g firebase-tools
 
       - name: Deploy to Firebase Hosting
-        # Uses the authenticated gcloud context from the previous step.
-        # `--project` explicitly sets the target Firebase project from .firebaserc
-        run: firebase deploy --only hosting --project efforts-celebrations
+        run: |
+          echo "Deploying to Firebase..."
+          firebase deploy --only hosting --project efforts-celebrations
