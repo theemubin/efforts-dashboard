@@ -3,18 +3,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPortal } from "react-dom";
 import { db } from '../firebase';
 import { collection, query, getDocs, doc, getDoc, where } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase';
 import styles from './FeaturedWinnersCarousel.module.css';
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import type { UserProfile } from '../types/UserProfile';
 
 const FeaturedWinnersCarousel: React.FC = () => {
+  const [user] = useAuthState(auth);
   const [open, setOpen] = useState(false);
   const [selectedWinner, setSelectedWinner] = useState<any>(null);
   const [winners, setWinners] = useState<any[]>([]);
 
-  // Fetch winners from Firestore
+  // Fetch winners from Firestore - only when authenticated
   useEffect(() => {
+    if (!user) {
+      setWinners([]);
+      return;
+    }
+
     async function fetchWinners() {
       try {
         // First, get all approved submissions
@@ -60,10 +68,11 @@ const FeaturedWinnersCarousel: React.FC = () => {
         setWinners(docs);
       } catch (err) {
         console.error('Failed to fetch winners:', err);
+        setWinners([]);
       }
     }
     fetchWinners();
-  }, []);
+  }, [user]);
 
   // Memoize winners to prevent unnecessary re-renders
   const infiniteWinners = useMemo(() => [...winners, ...winners, ...winners], [winners]);

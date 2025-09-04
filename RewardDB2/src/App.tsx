@@ -271,7 +271,11 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/event"
-              element={<EventPage />}
+              element={
+                <RequireAuth>
+                  <EventPage />
+                </RequireAuth>
+              }
             />
             <Route
               path="/admin"
@@ -294,7 +298,11 @@ function App() {
             </Route>
             <Route
               path="/"
-              element={<MainContent />}
+              element={
+                <RequireAuth>
+                  <MainContent />
+                </RequireAuth>
+              }
             />
           </Routes>
 

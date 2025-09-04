@@ -18,13 +18,19 @@ export const EventPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      setEvents([]);
+      setLoading(false);
+      return;
+    }
+
     const q = query(collection(db, 'events'), orderBy('date', 'desc'));
     const unsub = onSnapshot(q, (snapshot) => {
       setEvents(snapshot.docs.map(doc => ({ id: doc.id, type: 'event', ...doc.data() })));
       setLoading(false);
     });
     return () => unsub();
-  }, []);
+  }, [user]);
 
   const filteredEvents = selectedFilter === 'all'
     ? events
