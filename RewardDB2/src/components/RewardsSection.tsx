@@ -33,7 +33,7 @@ import type { RewardRecord } from '../types/rewards';
 
 
 export const RewardsSection = ({ id }: { id?: string }) => {
-  const { campusLevel } = useCampus();
+  const { getCampusLevel } = useCampus();
   const [levelFilter, setLevelFilter] = useState<'all'|number>('all');
   const [categoryFilter, setCategoryFilter] = useState<'all'|string>('all');
   const [campusFilter, setCampusFilter] = useState<string[] | 'all'>('all');
@@ -42,6 +42,8 @@ export const RewardsSection = ({ id }: { id?: string }) => {
   const [loading, setLoading] = useState(true);
   const [showDebug] = useState(false);
   const { user, profile } = useUserProfile();
+  console.log('RewardsSection - User campus:', profile?.campus);
+  console.log('RewardsSection - Campus level:', getCampusLevel(profile?.campus || 'Pune'));
   const [claimingIds, setClaimingIds] = useState<string[]>([]);
   const [claimedIds, setClaimedIds] = useState<string[]>([]); // claimed (pending/approved) this month by this house
   const [claimDetails, setClaimDetails] = useState<Record<string,{createdAt?: any; decidedAt?: any; status?: string}>>({});
@@ -107,10 +109,12 @@ export const RewardsSection = ({ id }: { id?: string }) => {
       if(campusFilter === 'all') campusOk = true;
       else if(Array.isArray(campusFilter)) campusOk = campusFilter.includes(r.campus) || r.campus === 'All Campus';
       else campusOk = r.campus === campusFilter || r.campus === 'All Campus';
-      const lockOk = showLocked ? true : r.level <= campusLevel;
-      return levelOk && categoryOk && campusOk && lockOk;
+      const lockOk = showLocked ? true : r.level <= getCampusLevel(profile?.campus || 'Pune');
+      const shouldShow = levelOk && categoryOk && campusOk && lockOk;
+      console.log(`Reward ${r.title}: level=${r.level}, userCampus=${profile?.campus || 'Pune'}, campusLevel=${getCampusLevel(profile?.campus || 'Pune')}, lockOk=${lockOk}, shouldShow=${shouldShow}`);
+      return shouldShow;
     });
-  }, [rewards, levelFilter, categoryFilter, campusFilter, showLocked, campusLevel]);
+  }, [rewards, levelFilter, categoryFilter, campusFilter, showLocked, profile?.campus, getCampusLevel]);
 
   const topRewards = useMemo(()=> {
     return [...rewards]
@@ -221,7 +225,7 @@ export const RewardsSection = ({ id }: { id?: string }) => {
   const handleClaim = async (reward: RewardRecord) => {
     if(!user){ toast.error('Login required'); return; }
     if(!profile?.campus || !profile?.house){ toast.error('Complete onboarding first'); return; }
-    if(reward.level > campusLevel){ toast.error('Campus level too low'); return; }
+    if(reward.level > getCampusLevel(profile?.campus || 'Pune')){ toast.error('Campus level too low'); return; }
     if(claimedIds.includes(reward.id)){
       // Already pending or approved
       toast('Already claimed this month');
@@ -274,7 +278,7 @@ export const RewardsSection = ({ id }: { id?: string }) => {
     <section className="rewards-section" id={id}>
        <div className="section-header">
          <h2>Campus Rewards</h2>
-         <p>Your campus level: <strong className="campus-level">{campusLevel}</strong>. Unlock higher tier rewards by progressing on Etiocracy.</p>
+         <p>Your campus level: <strong className="campus-level">{getCampusLevel(profile?.campus || 'Pune')}</strong>. Unlock higher tier rewards by progressing on Etiocracy.</p>
        </div>
       {topRewards.length > 0 && (
         <div className="popular-carousel-wrap">
@@ -380,7 +384,7 @@ export const RewardsSection = ({ id }: { id?: string }) => {
       {loading ? <div style={{padding:'1.2rem',color:'#8fa4ba'}}>Loading rewards...</div> : (
       <div className="modern-rewards-grid">
         {filtered.map(r => {
-          const unlocked = campusLevel >= r.level;
+          const unlocked = getCampusLevel(profile?.campus || 'Pune') >= r.level;
           const status = claimDetails[r.id]?.status;
           const isClaiming = claimingIds.includes(r.id);
           const alreadyClaimed = claimedIds.includes(r.id);

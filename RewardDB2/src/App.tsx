@@ -19,6 +19,7 @@ import MediaAdmin from './pages/admin/MediaAdmin';
 import SettingsAdmin from './pages/admin/SettingsAdmin';
 import ClaimsAdmin from './pages/admin/ClaimsAdmin';
 import TestimonialsAdmin from './pages/admin/TestimonialsAdmin';
+import EtiocracyLevelsAdmin from './pages/admin/EtiocracyLevelsAdmin';
 import './index.css';
 import FeaturedWinnersCarousel from './components/FeaturedWinnersCarousel';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
@@ -292,6 +293,7 @@ function App() {
               <Route path="claims" element={<ClaimsAdmin />} />
               <Route path="media" element={<MediaAdmin />} />
               <Route path="testimonials" element={<TestimonialsAdmin />} />
+              <Route path="etiocracy-levels" element={<EtiocracyLevelsAdmin />} />
               <Route path="points-upload" element={<PointsUploadAdmin />} />
               <Route path="settings" element={<SettingsAdmin />} />
               <Route path="*" element={<Navigate to="events" replace />} />

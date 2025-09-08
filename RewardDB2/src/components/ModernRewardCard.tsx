@@ -65,6 +65,7 @@ const ModernRewardCard: React.FC<ModernRewardCardProps> = ({
   onClaim,
   onToggleLike
 }) => {
+  console.log(`ModernRewardCard ${reward.title}: unlocked=${unlocked}, level=${reward.level}`);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHoveringDescription, setIsHoveringDescription] = useState(false);
